@@ -27,3 +27,49 @@ blockchain = [
 # Anthony's KelloggCoin balance is 2650
 
 # 👇👇👇 Your code HERE 👇👇👇
+users = {}
+blockchain.each do |key, value|
+    
+    user_send = key["from_user"]
+    user_receive = key["to_user"]
+
+    if user_send == nil
+    users[user_receive] = 0
+    else
+    users[user_send] = 0
+    users[user_receive] = 0
+    end
+
+end
+puts users
+
+
+blockchain.each do |key, value|
+
+  sender = key["from_user"]
+  receiver = key["to_user"]
+  sent_coin = key["amount"]
+
+  if sender != nil
+  original_amt_receiver = users[receiver]
+  users[receiver] = original_amt_receiver + sent_coin
+
+  original_amt_sender = users[sender]
+  users[sender] = original_amt_sender - sent_coin
+
+  else
+
+  original_amt_receiver = users[receiver]
+  users[receiver] = original_amt_receiver + sent_coin
+
+  end
+
+end
+
+users.each do |key, value|
+
+  user = key
+  amt_coin = value
+  puts "#{user}'s Kelloggcoin balance is #{amt_coin}"
+
+end
